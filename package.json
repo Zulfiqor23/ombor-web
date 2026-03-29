@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/generate-supabase.js",
+    "vercel-build": "node scripts/generate-supabase.js",
     "dev": "npm run build && npx --yes serve dist -p 3000"
   },
   "devDependencies": {
