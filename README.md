@@ -31,10 +31,10 @@ git push -u origin main
 4. **Build va chiqish**: `npm run build` → chiqish papkasi **`public`** (Vercel standartiga mos).
 5. Deploy.
 
-### 404 bo‘lsa
+### 404 yoki build xatosi
 
 - GitHub repoda **oxirgi kod** borligini tekshiring: `vercel.json`, `package.json`, `index.html`, `scripts/` koʻrinishi kerak.
-- Mahalliy kompyuterdan: `git remote -v` — `origin` bor-yo‘qligini tekshiring; bo‘lmasa `git remote add origin https://github.com/Zulfiqor23/ombor-web.git` va `git push -u origin main`.
+- **Install** xatosi: `package.json` va `package-lock.json` birga push qiling; `npm install` ni faqat `git` orqali yangilang (upload chalkashtirmasin).
 - Vercel **Deployments** → oxirgi deploy **Building** logida `public/ tayyor` qatori chiqishi kerak.
 
 ## Lokal tekshiruv
