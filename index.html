@@ -3,108 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omborchi Tizimi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #2563eb;
-      --surface: #ffffff;
-      --bg: #f8fafc;
-      --text: #0f172a;
-      --border: #e2e8f0;
-    }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
-    .header { font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-    .grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
-    .modules-list { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 15px; height: 80vh; overflow-y: auto;}
-    .bom-view { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
-    .module-item { padding: 10px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
-    .module-item:hover { background: var(--bg); }
-    .module-item strong { display: block; font-size: 16px; }
-    .module-item span { color: #64748b; font-size: 13px; }
-    
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
-    th { background: var(--bg); font-weight: 600; font-size: 13px; color: #475569; }
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; }
-      .modules-list { height: 40vh; }
-    }
-  </style>
+  <title>Omborchi Tizimi v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <div id="app">
+    <header class="main-header">
+      <div class="logo">
+        <span class="icon">📦</span>
+        <h1>Omborchi <span>Pro</span></h1>
+      </div>
+      <div class="user-profile">
+        <span id="sync-status" class="status-badge">Bog'langan</span>
+      </div>
+    </header>
 
-<div class="header">📦 Omborchi Paneli</div>
+    <main class="dashboard-grid">
+      <aside class="sidebar">
+        <div class="section-title">
+          <h2>Modullar</h2>
+          <span class="count" id="module-count">0</span>
+        </div>
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Qidiruv...">
+        </div>
+        <nav id="modules-list" class="scroll-area">
+          <div class="loader">Yuklanmoqda...</div>
+        </nav>
+      </aside>
 
-<div class="grid">
-  <div class="modules-list" id="modules-list">
-    <div style="color:#94a3b8; text-align:center; padding-top:20px;">Yuklanmoqda...</div>
+      <section class="content-view">
+        <div id="welcome-screen" class="empty-state">
+          <div class="hero-icon">🔎</div>
+          <h2>Modulni tanlang</h2>
+          <p>Batafsil ma'lumot (BOM) bu yerda ko'rinadi.</p>
+        </div>
+
+        <div id="bom-dashboard" class="bom-data" style="display: none;">
+          <header class="bom-header">
+            <div class="title-group">
+              <h2 id="active-module-name">Nomsiz modul</h2>
+              <span id="active-module-artikul" class="artikul-tag">-</span>
+            </div>
+            <div class="segment-pill" id="active-module-segment">Segment</div>
+          </header>
+
+          <div class="tables-container">
+            <div class="table-card">
+              <div class="card-header">
+                <h3>🛠️ Materiallar</h3>
+              </div>
+              <div class="table-wrapper">
+                <table id="tbl-materials">
+                  <thead>
+                    <tr>
+                      <th>Nomi</th>
+                      <th class="text-right">Miqdori</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <div class="card-header">
+                <h3>⚙️ Furnituralar</h3>
+              </div>
+              <div class="table-wrapper">
+                <table id="tbl-fasteners">
+                  <thead>
+                    <tr>
+                      <th>Nomi</th>
+                      <th class="text-right">Miqdori</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
-  
-  <div class="bom-view" id="bom-view">
-    <h2 style="margin-top:0; color: #334155;">Modulni tanlang</h2>
-    <p style="color:#64748b;">Kerakli xomashyolar ro'yxati (BOM) bu yerda ko'rinadi.</p>
-    
-    <div id="bom-content" style="display:none;">
-        <h3 style="margin-top:20px; border-bottom:2px solid var(--primary); padding-bottom:5px; display:inline-block;">Materiallar</h3>
-        <table id="tbl-mat">
-            <thead><tr><th>Nomi</th><th>Miqdori</th></tr></thead>
-            <tbody></tbody>
-        </table>
-
-        <h3 style="margin-top:30px; border-bottom:2px solid var(--primary); padding-bottom:5px; display:inline-block;">Furnituralar</h3>
-        <table id="tbl-fur">
-            <thead><tr><th>Nomi</th><th>Miqdori</th></tr></thead>
-            <tbody></tbody>
-        </table>
-    </div>
-  </div>
-</div>
-
-<script type="module">
-  import { supabase } from './supabaseClient.js';
-
-  async function loadModules() {
-    const listEl = document.getElementById('modules-list');
-    const { data: modules, error } = await supabase.from('modules').select('*').order('created_at', { ascending: false });
-    
-    if (error) { listEl.innerHTML = `<div style="color:red">Xatolik: ${error.message}</div>`; return; }
-    
-    listEl.innerHTML = '';
-    modules.forEach(m => {
-      const div = document.createElement('div');
-      div.className = 'module-item';
-      div.innerHTML = `<strong>${m.name || 'Nomsiz'}</strong><span>Artikul: ${m.artikul}</span>`;
-      div.onclick = () => loadBom(m);
-      listEl.appendChild(div);
-    });
-  }
-
-  async function loadBom(module) {
-    document.querySelector('.bom-view h2').textContent = module.name + ` (${module.artikul})`;
-    document.querySelector('.bom-view p').textContent = module.segment ? `Segment: ${module.segment}` : '';
-    document.getElementById('bom-content').style.display = 'block';
-
-    const tMat = document.querySelector('#tbl-mat tbody');
-    const tFur = document.querySelector('#tbl-fur tbody');
-    tMat.innerHTML = '<tr><td colspan="2">Yuklanmoqda...</td></tr>';
-    tFur.innerHTML = '<tr><td colspan="2">Yuklanmoqda...</td></tr>';
-
-    try {
-        const { data: mats } = await supabase.from('module_materials').select('quantity, materials(name)').eq('module_id', module.id);
-        const { data: furs } = await supabase.from('module_fasteners').select('quantity, fasteners(name)').eq('module_id', module.id);
-
-        tMat.innerHTML = mats?.length ? Object.values(mats).map(m => `<tr><td>${m.materials?.name || '?'}</td><td>${m.quantity}</td></tr>`).join('') : '<tr><td colspan="2">Material ulanmagan</td></tr>';
-        
-        tFur.innerHTML = furs?.length ? Object.values(furs).map(f => `<tr><td>${f.fasteners?.name || '?'}</td><td>${f.quantity}</td></tr>`).join('') : '<tr><td colspan="2">Furnitura ulanmagan</td></tr>';
-    } catch (e) {
-        console.error(e);
-        tMat.innerHTML = `<tr><td colspan="2" style="color:red">Xatolik yuz berdi</td></tr>`;
-    }
-  }
-
-  loadModules();
-</script>
-
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

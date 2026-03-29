@@ -1,9 +1,8 @@
 node_modules/
 dist/
-public/
 .env
 .env.*
 !.env.example
-supabaseClient.js
 .DS_Store
 .vercel
+package-lock.json
