@@ -1,6 +1,6 @@
 # Omborchi veb (Supabase BOM)
 
-Modullar roʻyxati va tanlangan modul uchun **materiallar / furnitura** (BOM) jadvali. Supabase `modules`, `module_materials`, `module_fasteners` jadvallariga ulanadi.
+Ombor nazoratini real vaqtda yuritish — modullar roʻyxati va tanlangan modul uchun **materiallar / furnitura** (BOM) jadvali. Supabase `modules`, `module_materials`, `module_fasteners` jadvallariga ulanadi.
 
 ## GitHub
 
