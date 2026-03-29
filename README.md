@@ -38,7 +38,7 @@ cp .env.example .env
 
 npm install
 npm run build
-npx serve . -p 3000
+npx serve dist -p 3000
 ```
 
 Brauzerda `http://localhost:3000` ochiladi.
