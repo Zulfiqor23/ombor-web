@@ -1,0 +1,13 @@
+{
+  "name": "ombor-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/generate-supabase.js",
+    "vercel-build": "node scripts/generate-supabase.js",
+    "dev": "npm run build && npx --yes serve public -p 3000"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
