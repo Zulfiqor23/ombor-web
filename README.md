@@ -28,7 +28,14 @@ git push -u origin main
    - `SUPABASE_URL` — Supabase loyiha URL
    - `SUPABASE_ANON_KEY` — anon (public) API kalit
 
-4. Deploy. Build avtomatik `npm run build` orqali `supabaseClient.js` faylini yozadi.
+4. **Build va chiqish**: `npm run build` → chiqish papkasi **`public`** (Vercel standartiga mos).
+5. Deploy.
+
+### 404 bo‘lsa
+
+- GitHub repoda **oxirgi kod** borligini tekshiring: `vercel.json`, `package.json`, `index.html`, `scripts/` koʻrinishi kerak.
+- Mahalliy kompyuterdan: `git remote -v` — `origin` bor-yo‘qligini tekshiring; bo‘lmasa `git remote add origin https://github.com/Zulfiqor23/ombor-web.git` va `git push -u origin main`.
+- Vercel **Deployments** → oxirgi deploy **Building** logida `public/ tayyor` qatori chiqishi kerak.
 
 ## Lokal tekshiruv
 
@@ -38,7 +45,7 @@ cp .env.example .env
 
 npm install
 npm run build
-npx serve dist -p 3000
+npx serve public -p 3000
 ```
 
 Brauzerda `http://localhost:3000` ochiladi.

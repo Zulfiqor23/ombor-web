@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
-const dist = path.join(root, 'dist')
+const outDir = path.join(root, 'public')
 
 if (!process.env.VERCEL) {
   await import('dotenv/config')
@@ -22,7 +22,7 @@ if (!url || !key) {
   process.exit(1)
 }
 
-fs.mkdirSync(dist, { recursive: true })
+fs.mkdirSync(outDir, { recursive: true })
 
 const client = `import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
@@ -32,6 +32,6 @@ const supabaseKey = ${JSON.stringify(key)}
 export const supabase = createClient(supabaseUrl, supabaseKey)
 `
 
-fs.writeFileSync(path.join(dist, 'supabaseClient.js'), client, 'utf8')
-fs.copyFileSync(path.join(root, 'index.html'), path.join(dist, 'index.html'))
-console.log('dist/ tayyor: index.html + supabaseClient.js')
+fs.writeFileSync(path.join(outDir, 'supabaseClient.js'), client, 'utf8')
+fs.copyFileSync(path.join(root, 'index.html'), path.join(outDir, 'index.html'))
+console.log('public/ tayyor: index.html + supabaseClient.js')
